@@ -18,3 +18,31 @@ export const createPost = async(req, res) => {
         res.status(500).json({ message: error })
     }
 }
+
+
+export const getAllPosts = async(req,res) =>{
+    try {
+        const result = await Post.find().populate('author', 'username -_id')
+
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(500).json({message:error})
+    }
+}
+
+
+
+
+export const getOnePost = async(req,res) =>{
+    const {id} = req.params
+    try {
+        const result = await Post.findById(id)
+
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(500).json({message:error})
+    }
+}
+
+
+
